@@ -21,18 +21,11 @@ export function TwusdIcon(props: SVGProps<SVGSVGElement>) {
       role="img"
       {...props}
     >
-      {/* Placeholder SVG content - replace with actual TWUSD icon paths */}
-      <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.1" />
-      <text
-        x="12"
-        y="14"
-        textAnchor="middle"
-        fontSize="7"
-        fontWeight="bold"
-        fill="currentColor"
-      >
-        TWUSD
-      </text>
+      {/* Placeholder SVG content - replace with actual TWUSD icon design */}
+      {/* Symbol-only design, no text as per branding guidelines */}
+      <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.15" />
+      <rect x="7" y="7" width="10" height="10" fill="currentColor" opacity="0.3" rx="1" />
+      <circle cx="12" cy="12" r="2.5" fill="currentColor" />
     </svg>
   );
 }

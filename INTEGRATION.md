@@ -266,7 +266,7 @@ git submodule add https://github.com/VKATHUSHAN/theusdox-assets.git src/assets
 
 ```bash
 cd src
-git clone https://github.com/VKATHUSAN/theusdox-assets.git assets
+git clone https://github.com/VKATHUSHAN/theusdox-assets.git assets
 ```
 
 #### Method 3: NPM Package (Future)

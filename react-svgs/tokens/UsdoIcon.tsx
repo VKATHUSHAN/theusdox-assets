@@ -21,18 +21,11 @@ export function UsdoIcon(props: SVGProps<SVGSVGElement>) {
       role="img"
       {...props}
     >
-      {/* Placeholder SVG content - replace with actual USDO icon paths */}
-      <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.1" />
-      <text
-        x="12"
-        y="16"
-        textAnchor="middle"
-        fontSize="10"
-        fontWeight="bold"
-        fill="currentColor"
-      >
-        USDO
-      </text>
+      {/* Placeholder SVG content - replace with actual USDO icon design */}
+      {/* Symbol-only design, no text as per branding guidelines */}
+      <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.15" />
+      <circle cx="12" cy="12" r="6" fill="currentColor" opacity="0.3" />
+      <circle cx="12" cy="12" r="3" fill="currentColor" />
     </svg>
   );
 }
