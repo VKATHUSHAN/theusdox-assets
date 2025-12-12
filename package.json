@@ -1,0 +1,53 @@
+{
+  "name": "@theusdox/assets",
+  "version": "1.0.0",
+  "description": "Official asset repository for the TheUSDOX ecosystem",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VKATHUSHAN/theusdox-assets.git"
+  },
+  "keywords": [
+    "theusdox",
+    "usdo",
+    "twusd",
+    "crypto",
+    "assets",
+    "icons",
+    "logos",
+    "branding",
+    "web3",
+    "defi"
+  ],
+  "author": "TheUSDOX Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VKATHUSHAN/theusdox-assets/issues"
+  },
+  "homepage": "https://github.com/VKATHUSHAN/theusdox-assets#readme",
+  "files": [
+    "branding",
+    "tokens",
+    "wallet-icons",
+    "contracts",
+    "social",
+    "marketing",
+    "react-svgs",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "optimize:svg": "svgo -f ./branding/logos -f ./tokens -f ./branding/icons",
+    "optimize:images": "echo 'Use ImageOptim or TinyPNG to optimize images'",
+    "generate:react": "echo 'Use SVGR to generate React components from SVGs'",
+    "lint": "echo 'Run asset validation checks'"
+  },
+  "devDependencies": {},
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
