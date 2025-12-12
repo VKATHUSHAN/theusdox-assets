@@ -1,0 +1,20 @@
+{
+  "name": "TWUSD",
+  "symbol": "TWUSD",
+  "decimals": 18,
+  "chainId": 1,
+  "address": "0x0000000000000000000000000000000000000000",
+  "logoURI": "https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/tokens/twusd/twusd-icon.svg",
+  "tags": [
+    "wrapped",
+    "defi",
+    "theusdox"
+  ],
+  "extensions": {
+    "website": "https://theusdox.com",
+    "description": "TWUSD wrapped token - part of the TheUSDOX ecosystem",
+    "twitter": "https://twitter.com/theusdox",
+    "coinGeckoId": "",
+    "coinMarketCapId": ""
+  }
+}
