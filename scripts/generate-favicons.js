@@ -106,7 +106,7 @@ async function optimizePng(filePath) {
       })
       .toFile(tempPath);
     
-    fs.renameSync(tempPath, filePath);
+    await fs.promises.rename(tempPath, filePath);
     console.log(`✓ Optimized: ${filePath}`);
   } catch (error) {
     console.error(`✗ Error optimizing ${filePath}:`, error.message);
