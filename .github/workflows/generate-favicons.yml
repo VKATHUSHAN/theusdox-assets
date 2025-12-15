@@ -1,0 +1,67 @@
+name: Generate Favicons
+
+on:
+  # Trigger on push to main when logo files change
+  push:
+    branches:
+      - main
+    paths:
+      - 'TheUSDOX-LOGO.png'
+      - 'USDOXCARE-ORGANIZATION-LOGO .jpg'
+      - 'scripts/generate-favicons.js'
+  
+  # Trigger on pull request when logo files change
+  pull_request:
+    paths:
+      - 'TheUSDOX-LOGO.png'
+      - 'USDOXCARE-ORGANIZATION-LOGO .jpg'
+      - 'scripts/generate-favicons.js'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-favicons:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci || npm install
+      
+      - name: Generate favicons
+        run: npm run generate-favicons
+      
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --quiet favicons/ || echo "changes=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push generated favicons
+        if: steps.git-check.outputs.changes == 'true' && github.event_name != 'pull_request'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add favicons/
+          git commit -m "chore: regenerate favicons [skip ci]"
+          git push
+      
+      - name: Upload favicon artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: favicons
+          path: favicons/
+          retention-days: 30
