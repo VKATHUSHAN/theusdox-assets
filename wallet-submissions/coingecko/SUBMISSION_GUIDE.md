@@ -85,7 +85,7 @@ CoinGecko has two submission methods:
 
 If the form is unavailable, submit via email:
 
-**To**: tokens@coingecko.com or coinmarketcap@coingecko.com
+**To**: tokens@coingecko.com
 
 **Subject**: Token Listing Request - TWUSD (TheUSDOX Wrapped Dollar EVM)
 
