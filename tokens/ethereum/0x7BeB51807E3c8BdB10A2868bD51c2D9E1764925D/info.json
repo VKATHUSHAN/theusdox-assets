@@ -1,0 +1,21 @@
+{
+  "name": "TheUSDOX Wrapped Dollar EVM",
+  "symbol": "TWUSD",
+  "type": "ERC20",
+  "decimals": 18,
+  "description": "TheUSDOX Wrapped Dollar EVM token",
+  "website": "",
+  "explorer": "https://etherscan.io/token/0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D",
+  "status": "active",
+  "id": "0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D",
+  "links": [
+    {
+      "name": "etherscan",
+      "url": "https://etherscan.io/token/0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D"
+    }
+  ],
+  "tags": [
+    "wrapped",
+    "stablecoin"
+  ]
+}
