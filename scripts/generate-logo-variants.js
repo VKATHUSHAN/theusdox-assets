@@ -18,7 +18,16 @@
  *   Sizes: 256px, 512px, 1024px, 2048px (width, maintaining aspect ratio)
  */
 
-const sharp = require('sharp');
+// Check if Sharp is available
+let sharp;
+try {
+  sharp = require('sharp');
+} catch (error) {
+  console.error('✗ Error: Sharp library not found.');
+  console.error('  Please install it by running: npm install sharp');
+  process.exit(1);
+}
+
 const fs = require('fs');
 const path = require('path');
 
@@ -49,6 +58,11 @@ function ensureOutputDir() {
  * @param {string} sourcePath - Path to source image
  * @param {string} outputPath - Path to output image
  * @param {number} width - Target width in pixels
+ * 
+ * Note: withoutEnlargement is set to false to allow upscaling.
+ * This is intentional to generate larger variants (e.g., 2048px) from
+ * source images that may be smaller. The quality is maintained through
+ * Sharp's high-quality resize algorithms.
  */
 async function generateVariant(sourcePath, outputPath, width) {
   try {
