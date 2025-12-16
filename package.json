@@ -34,6 +34,7 @@
     "social",
     "marketing",
     "react-svgs",
+    "favicons",
     "README.md",
     "LICENSE"
   ],
@@ -41,9 +42,14 @@
     "optimize:svg": "svgo -f ./branding/logos -f ./tokens -f ./branding/icons",
     "optimize:images": "echo 'Use ImageOptim or TinyPNG to optimize images'",
     "generate:react": "echo 'Use SVGR to generate React components from SVGs'",
-    "lint": "echo 'Run asset validation checks'"
+    "lint": "echo 'Run asset validation checks'",
+    "generate-favicons": "node scripts/generate-favicons.js",
+    "optimize-favicons": "node scripts/generate-favicons.js --optimize-only"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "sharp": "^0.33.1",
+    "png-to-ico": "^2.1.8"
+  },
   "peerDependencies": {
     "react": ">=16.8.0"
   },

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+  <msapplication>
+    <tile>
+      <square70x70logo src="/favicons/usdoxcare/favicon-64x64.png"/>
+      <square150x150logo src="/favicons/usdoxcare/favicon-128x128.png"/>
+      <square310x310logo src="/favicons/usdoxcare/android-chrome-192x192.png"/>
+      <TileColor>#059669</TileColor>
+    </tile>
+  </msapplication>
+</browserconfig>
