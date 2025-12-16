@@ -45,7 +45,7 @@
     "lint": "echo 'Run asset validation checks'"
   },
   "devDependencies": {
-    "sharp": "^0.33.0"
+    "sharp": "^0.33.5"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
