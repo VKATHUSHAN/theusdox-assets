@@ -41,9 +41,12 @@
     "optimize:svg": "svgo -f ./branding/logos -f ./tokens -f ./branding/icons",
     "optimize:images": "echo 'Use ImageOptim or TinyPNG to optimize images'",
     "generate:react": "echo 'Use SVGR to generate React components from SVGs'",
+    "generate:variants": "node scripts/generate-logo-variants.js",
     "lint": "echo 'Run asset validation checks'"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  },
   "peerDependencies": {
     "react": ">=16.8.0"
   },

@@ -57,3 +57,6 @@ out/
 .next/
 .nuxt/
 .cache/
+
+# Generated logo variants (use npm run generate:variants to create)
+branding/logos/variants/

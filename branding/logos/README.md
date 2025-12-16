@@ -4,40 +4,42 @@ Official TheUSDOX brand logos for all platforms and use cases.
 
 ## 📁 Available Assets
 
-### Logo Variants
-- **Primary Logo**: Full color on light background
-- **Primary Logo Dark**: Full color on dark background
-- **Wordmark**: Text-only logo
-- **Symbol**: Icon-only version
-- **Monochrome**: Single color variations
+### Primary Logos
+
+The following logo files are available in the repository:
+
+1. **TWUSD Logo** - `theusdox-twusd-logo.png` (79 KB)
+   - Raw URL: `https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-twusd-logo.png`
+   
+2. **USDO Logo** - `theusdox-usdo-logo.png` (192 KB)
+   - Raw URL: `https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-usdo-logo.png`
+   
+3. **USDOXCare Logo** - `theusdox-care-logo.png` (216 KB)
+   - Raw URL: `https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-care-logo.png`
+
+### Generated Variants
+
+Use the `scripts/generate-logo-variants.js` script to generate different sizes (256px, 512px, 1024px, 2048px) for all logos. The variants will be stored in the `variants/` subdirectory.
 
 ### File Formats
-- **SVG**: Vector format (recommended for web)
-- **PNG**: Transparent background (various sizes)
-
-### Sizes (PNG)
-- 256px × 256px
-- 512px × 512px
-- 1024px × 1024px
-- 2048px × 2048px
+- **PNG**: Transparent background (primary logos and variants)
 
 ## 🎨 Logo Specifications
 
-### Primary Logo
-- **Usage**: Default logo for all applications
-- **Background**: White or light backgrounds
+### TWUSD Logo
+- **Usage**: For TWUSD token branding and marketing
 - **Minimum Width**: 120px digital, 1 inch print
-- **Clear Space**: Equal to height of 'X' in logo
+- **Clear Space**: Maintain adequate spacing around logo
 
-### Primary Logo Dark
-- **Usage**: On dark or colored backgrounds
-- **Background**: Dark backgrounds (#1a1a1a or darker)
+### USDO Logo
+- **Usage**: For USDO token branding and marketing
 - **Minimum Width**: 120px digital, 1 inch print
+- **Clear Space**: Maintain adequate spacing around logo
 
-### Symbol/Icon
-- **Usage**: App icons, favicons, small spaces
-- **Aspect Ratio**: 1:1 (square)
-- **Minimum Size**: 32px × 32px
+### USDOXCare Logo
+- **Usage**: For USDOXCare platform and services
+- **Minimum Width**: 120px digital, 1 inch print
+- **Clear Space**: Maintain adequate spacing around logo
 
 ## 📏 Usage Guidelines
 
@@ -59,45 +61,88 @@ Official TheUSDOX brand logos for all platforms and use cases.
 
 Logo files follow this pattern:
 ```
-theusdox-logo-[variant]-[size].[format]
+theusdox-[product]-logo.png         (primary logos)
+theusdox-[product]-logo-[size]px.png (variants)
 
 Examples:
-theusdox-logo-primary.svg
-theusdox-logo-dark.svg
-theusdox-logo-symbol-256px.png
-theusdox-wordmark.svg
+theusdox-twusd-logo.png
+theusdox-usdo-logo.png
+theusdox-care-logo.png
+theusdox-twusd-logo-256px.png
+theusdox-usdo-logo-512px.png
 ```
 
 ## 🔧 Implementation Examples
 
 ### HTML
 ```html
+<!-- TWUSD Logo -->
 <img 
-  src="/branding/logos/theusdox-logo-primary.svg" 
-  alt="TheUSDOX" 
+  src="https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-twusd-logo.png" 
+  alt="TheUSDOX TWUSD" 
+  width="200"
+/>
+
+<!-- USDO Logo -->
+<img 
+  src="https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-usdo-logo.png" 
+  alt="TheUSDOX USDO" 
+  width="200"
+/>
+
+<!-- USDOXCare Logo -->
+<img 
+  src="https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-care-logo.png" 
+  alt="TheUSDOX Care" 
   width="200"
 />
 ```
 
+### Markdown
+```markdown
+![TWUSD Logo](https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-twusd-logo.png)
+
+![USDO Logo](https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-usdo-logo.png)
+
+![USDOXCare Logo](https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-care-logo.png)
+```
+
 ### React
 ```jsx
-import logo from './branding/logos/theusdox-logo-primary.svg'
+// Import from CDN or local copy
+const TWUSD_LOGO = 'https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-twusd-logo.png';
+const USDO_LOGO = 'https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-usdo-logo.png';
+const CARE_LOGO = 'https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-care-logo.png';
 
-export default function Logo() {
+export default function Logo({ product = 'twusd' }) {
+  const logos = {
+    twusd: TWUSD_LOGO,
+    usdo: USDO_LOGO,
+    care: CARE_LOGO
+  };
+  
   return (
     <img 
-      src={logo} 
-      alt="TheUSDOX" 
+      src={logos[product]} 
+      alt={`TheUSDOX ${product.toUpperCase()}`} 
       className="h-8 w-auto"
     />
-  )
+  );
 }
 ```
 
 ### CSS
 ```css
-.logo {
-  background-image: url('./branding/logos/theusdox-logo-primary.svg');
+.logo-twusd {
+  background-image: url('https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-twusd-logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 50px;
+}
+
+.logo-usdo {
+  background-image: url('https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/branding/logos/theusdox-usdo-logo.png');
   background-size: contain;
   background-repeat: no-repeat;
   width: 200px;
@@ -108,46 +153,38 @@ export default function Logo() {
 ## 🎯 Use Cases
 
 ### Website Header
-- Use: `theusdox-logo-primary.svg`
+- Use: `theusdox-[product]-logo.png` or generated variants
 - Size: Auto-scale based on header height
-- Background: Light
-
-### Website Header (Dark Mode)
-- Use: `theusdox-logo-dark.svg`
-- Size: Auto-scale based on header height
-- Background: Dark
+- Recommended: Use 512px variant for high-resolution displays
 
 ### Favicon
-- Use: `theusdox-logo-symbol-512px.png`
+- Use: Generated `theusdox-[product]-logo-256px.png`
 - Convert to ICO format
 - Sizes: 16×16, 32×32, 48×48
 
 ### Social Media Profile
-- Use: `theusdox-logo-symbol-512px.png`
+- Use: Generated `theusdox-[product]-logo-512px.png`
 - Size: 512×512 minimum
 - Background: Transparent or brand color
 
 ### Email Signature
-- Use: `theusdox-logo-primary-256px.png`
+- Use: Generated `theusdox-[product]-logo-256px.png`
 - Size: 256px wide maximum
-- Background: White
 
 ## 📱 Platform-Specific Guidelines
 
 ### iOS App Icon
-- Use: `theusdox-logo-symbol-1024px.png`
+- Use: Generated `theusdox-[product]-logo-1024px.png`
 - Size: 1024×1024
 - Format: PNG
-- No transparency (fill with brand color if needed)
 
 ### Android App Icon
-- Use: `theusdox-logo-symbol-512px.png`
+- Use: Generated `theusdox-[product]-logo-512px.png`
 - Size: 512×512
 - Format: PNG
-- Can use transparency
 
 ### Web App Manifest
-- Use: `theusdox-logo-symbol-192px.png` and `theusdox-logo-symbol-512px.png`
+- Use: Generated variants at 192px and 512px
 - Sizes: 192×192, 512×512
 - Format: PNG
 
