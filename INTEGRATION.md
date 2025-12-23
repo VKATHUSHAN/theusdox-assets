@@ -435,9 +435,73 @@ For integration help:
 - Check the main README for documentation
 - Review example integrations in the repository
 
+## 🪙 TWUSD Token Integration
+
+### Quick Links
+
+The TWUSD (TheUSDOX Wrapped Dollar EVM) token has dedicated resources for wallet and platform integrations.
+
+#### Token Information
+- **Contract Address**: `0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D`
+- **Network**: Ethereum Mainnet (Chain ID: 1)
+- **Token Details**: [View on Etherscan](https://etherscan.io/token/0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D)
+
+#### Submission Guides
+- **Overview**: [Wallet Submissions README](/wallet-submissions/README.md)
+- **Etherscan**: [Submission Guide](/wallet-submissions/etherscan/SUBMISSION_GUIDE.md)
+- **Trust Wallet**: [Submission Guide](/wallet-submissions/trust-wallet/SUBMISSION_GUIDE.md)
+- **CoinGecko**: [Submission Guide](/wallet-submissions/coingecko/SUBMISSION_GUIDE.md)
+- **CoinMarketCap**: [Submission Guide](/wallet-submissions/coinmarketcap/SUBMISSION_GUIDE.md)
+
+#### Assets & Documentation
+- **Token Assets**: [Ethereum Token Directory](/tokens/ethereum/0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D/)
+- **Logo Files**: [TWUSD Branding](/branding/twusd/)
+- **Logo Specifications**: [Specifications Document](/branding/twusd/logo-specifications.md)
+
+### Integration Status
+
+| Platform | Status | Last Updated |
+|----------|--------|--------------|
+| Etherscan | ⏳ Pending | - |
+| Trust Wallet | ⏳ Pending | - |
+| CoinGecko | ⏳ Pending | - |
+| CoinMarketCap | ⏳ Pending | - |
+
+For detailed status and timeline, see [Wallet Submissions Status Tracker](/wallet-submissions/README.md#-submission-status-tracker).
+
+### Using TWUSD Assets
+
+#### Logo Files
+```javascript
+// Import 512x512 standard logo
+import twusdLogo from '@assets/tokens/ethereum/0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D/logo.png';
+
+// Or from branding directory
+import twusdLogo256 from '@assets/branding/twusd/logo-256x256.png';
+import twusdLogo512 from '@assets/branding/twusd/logo-512x512.png';
+import twusdLogo1024 from '@assets/branding/twusd/logo-1024x1024.png';
+```
+
+#### Token Metadata
+```javascript
+import twusdInfo from '@assets/tokens/ethereum/0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D/info.json';
+
+console.log(twusdInfo.name); // "TheUSDOX Wrapped Dollar EVM"
+console.log(twusdInfo.symbol); // "TWUSD"
+console.log(twusdInfo.decimals); // 18
+```
+
+### Contact Information
+
+For TWUSD integration support:
+- Check the relevant submission guide in `/wallet-submissions/`
+- Review logo specifications in `/branding/twusd/logo-specifications.md`
+- Open an issue in this repository for asset-related questions
+
 ## 🔗 Related Documentation
 
 - [Main README](./README.md)
 - [Contributing Guide](./CONTRIBUTING.md)
 - [Contract Metadata Guide](./contracts/README.md)
 - [React Components Guide](./react-svgs/README.md)
+- [Wallet Submissions Guide](./wallet-submissions/README.md)
