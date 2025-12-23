@@ -1,10 +1,10 @@
 {
   "name": "TWUSD",
   "symbol": "TWUSD",
-  "decimals": 18,
+  "decimals": 6,
   "description": "TWUSD wrapped token - part of the TheUSDOX ecosystem",
   "addresses": {
-    "mainnet": "0x0000000000000000000000000000000000000000",
+    "mainnet": "0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D",
     "sepolia": "0x0000000000000000000000000000000000000000",
     "goerli": "0x0000000000000000000000000000000000000000"
   },
@@ -14,7 +14,7 @@
     "goerli": 5
   },
   "explorers": {
-    "mainnet": "https://etherscan.io/token/0x0000000000000000000000000000000000000000",
+    "mainnet": "https://etherscan.io/token/0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D",
     "sepolia": "https://sepolia.etherscan.io/token/0x0000000000000000000000000000000000000000",
     "goerli": "https://goerli.etherscan.io/token/0x0000000000000000000000000000000000000000"
   },

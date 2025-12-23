@@ -1,9 +1,9 @@
 {
   "name": "TWUSD",
   "symbol": "TWUSD",
-  "decimals": 18,
+  "decimals": 6,
   "chainId": 1,
-  "address": "0x0000000000000000000000000000000000000000",
+  "address": "0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D",
   "logoURI": "https://raw.githubusercontent.com/VKATHUSHAN/theusdox-assets/main/tokens/twusd/twusd-icon.svg",
   "tags": [
     "wrapped",

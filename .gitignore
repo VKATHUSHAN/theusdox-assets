@@ -28,6 +28,7 @@ Thumbs.db
 *.temp
 *.log
 *.cache
+temp/
 
 # Node modules (if using npm scripts)
 node_modules/
