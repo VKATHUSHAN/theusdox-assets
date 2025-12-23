@@ -58,8 +58,8 @@ jobs:
             if jq empty "$json_file" 2>/dev/null; then
               echo "✅ Valid: $json_file" >> $GITHUB_STEP_SUMMARY
               
-              # Check TWUSD decimals if it's a TWUSD file
-              if [[ "$json_file" == *"twusd"* ]]; then
+              # Check TWUSD decimals if it's a TWUSD metadata/token-info file (not ABI)
+              if [[ "$json_file" == *"twusd"* ]] && [[ "$json_file" != *"abi.json"* ]]; then
                 decimals=$(jq -r '.decimals // empty' "$json_file")
                 if [ ! -z "$decimals" ]; then
                   if [ "$decimals" = "6" ]; then
