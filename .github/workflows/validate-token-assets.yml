@@ -36,11 +36,12 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y imagemagick jq file
+          sudo apt-get install -y imagemagick jq file libxml2-utils
           
           # Verify installations
           echo "✓ ImageMagick version: $(convert -version | head -n1)"
           echo "✓ jq version: $(jq --version)"
+          echo "✓ xmllint version: $(xmllint --version 2>&1 | head -n1)"
       
       - name: Validate JSON files
         id: validate-json
