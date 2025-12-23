@@ -7,14 +7,15 @@ Official assets and metadata for the TWUSD (TheUSDOX Wrapped Dollar EVM) token o
 - **Name**: TheUSDOX Wrapped Dollar EVM
 - **Symbol**: TWUSD
 - **Type**: ERC20
-- **Decimals**: 18
+- **Decimals**: 6
 - **Contract Address**: `0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D`
 - **Network**: Ethereum Mainnet
 - **Chain ID**: 1
 
 ## Files
 
-- `logo.png` - 512x512px optimized token logo (< 100KB)
+- `logo.png` - 512x512px optimized token logo with transparency
+- `logo.svg` - Scalable vector graphic version
 - `info.json` - Token metadata in JSON format
 
 ## Token Logo
@@ -22,9 +23,9 @@ Official assets and metadata for the TWUSD (TheUSDOX Wrapped Dollar EVM) token o
 ![TWUSD Logo](logo.png)
 
 ### Specifications
-- **Size**: 512x512 pixels
-- **Format**: PNG-24 with alpha channel
-- **File Size**: < 100KB (optimized)
+- **Size**: 512x512 pixels (PNG), scalable (SVG)
+- **Format**: PNG with alpha channel (transparency) and SVG
+- **File Size**: ~26KB (PNG), ~3KB (SVG)
 - **Background**: Transparent
 - **Color Space**: sRGB
 

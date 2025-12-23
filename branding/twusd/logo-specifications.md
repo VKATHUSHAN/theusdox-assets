@@ -8,36 +8,43 @@ Official logo specifications for the TWUSD (TheUSDOX Wrapped Dollar EVM) token.
 
 ## Sizes Available
 
-This repository provides three optimized sizes for different use cases:
+This repository provides three optimized sizes plus SVG format for different use cases:
+
+### SVG - Scalable Vector
+- **File**: `logo.svg`
+- **Use Case**: Web applications, responsive design, any size needed
+- **File Size**: ~3KB
+- **Location**: `/branding/twusd/logo.svg`
+- **Also Available**: `/tokens/ethereum/0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D/logo.svg`
 
 ### 1024x1024px - High Resolution
 - **File**: `logo-1024x1024.png`
 - **Use Case**: Marketing materials, print, high-quality displays
-- **File Size**: ~110KB
+- **File Size**: ~5KB
 - **Location**: `/branding/twusd/logo-1024x1024.png`
 
 ### 512x512px - Standard
 - **File**: `logo-512x512.png`
 - **Use Case**: Most wallet integrations, web applications, Etherscan
-- **File Size**: ~21KB
+- **File Size**: ~26KB
 - **Location**: `/branding/twusd/logo-512x512.png`
 - **Also Available**: `/tokens/ethereum/0x7BeB51807E3c8BdB10A2868bD51c2D9E1764925D/logo.png`
 
 ### 256x256px - Small
 - **File**: `logo-256x256.png`
 - **Use Case**: Trust Wallet, mobile apps, thumbnails
-- **File Size**: ~17KB
+- **File Size**: ~5KB
 - **Location**: `/branding/twusd/logo-256x256.png`
 
 ## Technical Specifications
 
 ### Format
-- **File Type**: PNG-24 with alpha channel
-- **Color Mode**: RGB
+- **File Types**: PNG with alpha channel (transparency) and SVG (vector)
+- **PNG Color Mode**: Indexed palette with transparency
 - **Color Space**: sRGB
-- **Bit Depth**: 8-bit per channel
 - **Background**: Transparent (alpha channel)
 - **Compression**: Optimized with pngquant
+- **SVG**: Vector format, infinitely scalable
 
 ### Dimensions
 - **Aspect Ratio**: 1:1 (square)
@@ -48,9 +55,10 @@ This repository provides three optimized sizes for different use cases:
 
 ### File Sizes
 All files are optimized to meet platform requirements:
-- **1024x1024**: < 200KB (actual: ~110KB) ✅
-- **512x512**: < 100KB (actual: ~21KB) ✅
-- **256x256**: < 50KB (actual: ~17KB) ✅
+- **1024x1024**: < 200KB (actual: ~5KB) ✅
+- **512x512**: < 100KB (actual: ~26KB) ✅
+- **256x256**: < 50KB (actual: ~5KB) ✅
+- **SVG**: ~3KB (vector, scalable to any size) ✅
 
 ## Platform Compatibility
 
