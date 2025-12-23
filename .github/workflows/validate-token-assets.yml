@@ -1,0 +1,259 @@
+name: Validate Token Assets
+
+on:
+  # Trigger on PR changes to token and branding files
+  pull_request:
+    paths:
+      - 'tokens/**'
+      - 'branding/**'
+      - 'contracts/**'
+  
+  # Trigger on push to main and copilot branches
+  push:
+    branches:
+      - main
+      - 'copilot/**'
+    paths:
+      - 'tokens/**'
+      - 'branding/**'
+      - 'contracts/**'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate-assets:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick jq file libxml2-utils
+          
+          # Verify installations
+          echo "✓ ImageMagick version: $(convert -version | head -n1)"
+          echo "✓ jq version: $(jq --version)"
+          echo "✓ xmllint version: $(xmllint --version 2>&1 | head -n1)"
+      
+      - name: Validate JSON files
+        id: validate-json
+        run: |
+          echo "## JSON Validation Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          JSON_VALID=true
+          
+          # Find all JSON files in tokens and contracts
+          for json_file in $(find contracts tokens -name "*.json" -type f); do
+            echo "Validating: $json_file"
+            
+            if jq empty "$json_file" 2>/dev/null; then
+              echo "✅ Valid: $json_file" >> $GITHUB_STEP_SUMMARY
+              
+              # Check TWUSD decimals if it's a TWUSD file
+              if [[ "$json_file" == *"twusd"* ]]; then
+                decimals=$(jq -r '.decimals // empty' "$json_file")
+                if [ ! -z "$decimals" ]; then
+                  if [ "$decimals" = "6" ]; then
+                    echo "  ✅ TWUSD decimals correct: $decimals" >> $GITHUB_STEP_SUMMARY
+                  else
+                    echo "  ❌ TWUSD decimals incorrect: $decimals (expected: 6)" >> $GITHUB_STEP_SUMMARY
+                    JSON_VALID=false
+                  fi
+                fi
+              fi
+            else
+              echo "❌ Invalid JSON: $json_file" >> $GITHUB_STEP_SUMMARY
+              JSON_VALID=false
+            fi
+          done
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "$JSON_VALID" = "false" ]; then
+            echo "json_validation=failed" >> $GITHUB_OUTPUT
+            exit 1
+          else
+            echo "json_validation=passed" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Validate PNG files
+        id: validate-png
+        run: |
+          echo "## PNG Validation Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          PNG_VALID=true
+          
+          # Function to check PNG properties (platform-agnostic)
+          check_png() {
+            local file="$1"
+            local expected_size="$2"
+            local max_size_kb="$3"
+            
+            if [ ! -f "$file" ]; then
+              echo "⚠️  File not found: $file" >> $GITHUB_STEP_SUMMARY
+              return 1
+            fi
+            
+            # Get file size in bytes
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+              file_size=$(stat -f%z "$file")
+            else
+              file_size=$(stat -c%s "$file")
+            fi
+            
+            file_size_kb=$((file_size / 1024))
+            
+            # Get image dimensions and check alpha channel
+            dimensions=$(identify -format "%wx%h" "$file" 2>/dev/null || echo "error")
+            has_alpha=$(identify -format "%A" "$file" 2>/dev/null || echo "False")
+            
+            echo "### $(basename $file)" >> $GITHUB_STEP_SUMMARY
+            echo "- **Path**: \`$file\`" >> $GITHUB_STEP_SUMMARY
+            echo "- **Dimensions**: $dimensions" >> $GITHUB_STEP_SUMMARY
+            echo "- **Size**: ${file_size_kb}KB" >> $GITHUB_STEP_SUMMARY
+            echo "- **Transparency**: $has_alpha" >> $GITHUB_STEP_SUMMARY
+            
+            local has_error=false
+            
+            # Check dimensions if expected
+            if [ ! -z "$expected_size" ] && [ "$dimensions" != "$expected_size" ]; then
+              echo "- ❌ **Error**: Expected ${expected_size}, got ${dimensions}" >> $GITHUB_STEP_SUMMARY
+              has_error=true
+            fi
+            
+            # Check file size if max specified
+            if [ ! -z "$max_size_kb" ] && [ "$file_size_kb" -gt "$max_size_kb" ]; then
+              echo "- ❌ **Error**: File too large (${file_size_kb}KB > ${max_size_kb}KB)" >> $GITHUB_STEP_SUMMARY
+              has_error=true
+            fi
+            
+            # Check transparency
+            if [ "$has_alpha" != "True" ]; then
+              echo "- ⚠️  **Warning**: No alpha channel (transparency)" >> $GITHUB_STEP_SUMMARY
+            fi
+            
+            if [ "$has_error" = "true" ]; then
+              echo "- **Status**: ❌ Failed" >> $GITHUB_STEP_SUMMARY
+              return 1
+            else
+              echo "- **Status**: ✅ Passed" >> $GITHUB_STEP_SUMMARY
+              return 0
+            fi
+          }
+          
+          # Check main token logo (512x512, <200KB)
+          if [ -f "branding/logos/twusd-logo.png" ]; then
+            if ! check_png "branding/logos/twusd-logo.png" "" "200"; then
+              PNG_VALID=false
+            fi
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # Check if there are any PNG files that should be validated
+          png_count=$(find tokens branding -name "*.png" -type f 2>/dev/null | wc -l)
+          echo "**Total PNG files found**: $png_count" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "$PNG_VALID" = "false" ]; then
+            echo "png_validation=failed" >> $GITHUB_OUTPUT
+            exit 1
+          else
+            echo "png_validation=passed" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Validate SVG files
+        id: validate-svg
+        run: |
+          echo "## SVG Validation Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          SVG_VALID=true
+          svg_count=0
+          
+          # Find all SVG files
+          while IFS= read -r svg_file; do
+            svg_count=$((svg_count + 1))
+            echo "Validating: $svg_file"
+            
+            # Check if file is valid XML
+            if xmllint --noout "$svg_file" 2>/dev/null; then
+              # Get file size
+              if [[ "$OSTYPE" == "darwin"* ]]; then
+                file_size=$(stat -f%z "$svg_file")
+              else
+                file_size=$(stat -c%s "$svg_file")
+              fi
+              file_size_kb=$((file_size / 1024))
+              
+              echo "### $(basename $svg_file)" >> $GITHUB_STEP_SUMMARY
+              echo "- **Path**: \`$svg_file\`" >> $GITHUB_STEP_SUMMARY
+              echo "- **Size**: ${file_size_kb}KB" >> $GITHUB_STEP_SUMMARY
+              echo "- **XML Valid**: ✅ Yes" >> $GITHUB_STEP_SUMMARY
+              echo "- **Status**: ✅ Passed" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "### $(basename $svg_file)" >> $GITHUB_STEP_SUMMARY
+              echo "- **Path**: \`$svg_file\`" >> $GITHUB_STEP_SUMMARY
+              echo "- **XML Valid**: ❌ No" >> $GITHUB_STEP_SUMMARY
+              echo "- **Status**: ❌ Failed" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              SVG_VALID=false
+            fi
+          done < <(find tokens branding -name "*.svg" -type f 2>/dev/null || true)
+          
+          echo "**Total SVG files found**: $svg_count" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "$SVG_VALID" = "false" ]; then
+            echo "svg_validation=failed" >> $GITHUB_OUTPUT
+            exit 1
+          else
+            echo "svg_validation=passed" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Generate validation summary
+        if: always()
+        run: |
+          echo "## 📊 Overall Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          
+          json_status="${{ steps.validate-json.outputs.json_validation || 'skipped' }}"
+          png_status="${{ steps.validate-png.outputs.png_validation || 'skipped' }}"
+          svg_status="${{ steps.validate-svg.outputs.svg_validation || 'skipped' }}"
+          
+          [ "$json_status" = "passed" ] && json_icon="✅" || json_icon="❌"
+          [ "$png_status" = "passed" ] && png_icon="✅" || png_icon="❌"
+          [ "$svg_status" = "passed" ] && svg_icon="✅" || svg_icon="❌"
+          
+          echo "| JSON Validation | $json_icon $json_status |" >> $GITHUB_STEP_SUMMARY
+          echo "| PNG Validation | $png_icon $png_status |" >> $GITHUB_STEP_SUMMARY
+          echo "| SVG Validation | $svg_icon $svg_status |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Overall status
+          if [ "$json_status" = "passed" ] && [ "$png_status" = "passed" ] && [ "$svg_status" = "passed" ]; then
+            echo "✅ **All validations passed!**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Some validations failed. Please review the errors above.**" >> $GITHUB_STEP_SUMMARY
+          fi
+      
+      - name: Fail if validation errors
+        if: |
+          steps.validate-json.outputs.json_validation == 'failed' ||
+          steps.validate-png.outputs.png_validation == 'failed' ||
+          steps.validate-svg.outputs.svg_validation == 'failed'
+        run: |
+          echo "❌ Validation failed. Please check the summary above."
+          exit 1

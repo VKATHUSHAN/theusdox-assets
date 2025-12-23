@@ -28,6 +28,11 @@ Thumbs.db
 *.temp
 *.log
 *.cache
+temp/
+
+# Wallet submission generated files (keep directory, exclude generated content)
+wallet-submissions/SUBMISSION_STATUS.md
+wallet-submissions/*.txt
 
 # Node modules (if using npm scripts)
 node_modules/
